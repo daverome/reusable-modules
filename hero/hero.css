@@ -1,0 +1,42 @@
+.hero {
+  position: relative;
+  background: #fff url(pattern.png);
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  width: 100%;
+}
+
+.hero-content {
+  padding: 300px 15px;
+}
+
+/*
+  Vertical media queries
+*/
+
+@media screen and (max-height: 800px) {
+  
+  .hero-content {
+    padding-top: 250px;
+    padding-bottom: 250px;
+  }
+  
+}
+
+@media screen and (max-height: 600px) {
+  
+  .hero-content {
+    padding-top: 150px;
+    padding-bottom: 150px;
+  }
+  
+}
+
+@media screen and (max-height: 450px) {
+  
+  .hero-content {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+  
+}

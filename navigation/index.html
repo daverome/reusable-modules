@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <title>Reusable Navigation</title>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="cleartype" content="on">
+
+  <link rel="stylesheet" href="../global_assets/global.css">
+  <link rel="stylesheet" href="nav.css">
+  
+  <script src="../global_assets/global.js"></script>
+  
+</head>
+<body>
+  
+  <div class="is-hidden">
+    <ul>
+      <li><a href="#banner">Skip to banner</a></li>
+      <li><a href="#nav">Skip to main navigation</a></li>
+    </ul>
+  </div><!--/.is-hidden-->
+  
+  <header role="banner" class="banner" id="banner">
+    <div class="container">
+      <h1 class="branding">
+        <a href="#" class="logo">Project Badass</a>
+      </h1>
+      
+      <a href="#nav" aria-controls="nav" class="nav-menu-toggle control" id="menu-toggle">Menu</a>
+      
+      <nav role="navigation" class="nav" id="nav">
+        <ul class="nav-menu">
+          <li class="menu-item"><a href="#">Navigation Item</a></li>
+          <li class="menu-item"><a href="#">Navigation Item</a>
+            <ul class="menu-sub">
+              <li class="menu-sub-item"><a href="#">Sub Menu Item</a></li>
+              <li class="menu-sub-item"><a href="#">Sub Menu Item</a></li>
+            </ul>
+          </li>
+          <li class="menu-item"><a href="#">Navigation Item</a></li>
+          <li class="menu-item"><a href="#">Navigation Item</a>
+            <ul class="menu-sub">
+              <li class="menu-sub-item"><a href="#">Sub Menu Item</a></li>
+              <li class="menu-sub-item"><a href="#">Sub Menu Item</a></li>
+              <li class="menu-sub-item"><a href="#">Sub Menu Item</a></li>
+              <li class="menu-sub-item"><a href="#">Sub Menu Item</a></li>
+              <li class="menu-sub-item"><a href="#">Sub Menu Item</a></li>
+            </ul>
+          </li>
+          <li class="menu-item"><a href="#">Navigation Item</a></li>
+        </ul>
+      </nav><!--/.nav-->
+    </div><!--/.container-->
+  </header><!--/.banner-->
+  
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="nav.js"></script>
+  
+</body>
+</html>
