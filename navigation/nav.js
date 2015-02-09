@@ -13,7 +13,7 @@
 
     var size = window.getComputedStyle(document.body,':before').getPropertyValue('content');
 
-    if(size && size.indexOf( sizeString ) !=-1) {
+    if( size && size.indexOf( sizeString ) !=-1 ) {
       return true;
     } else {
       return false;
@@ -21,16 +21,53 @@
 
   };
 
-  Nav.createSmallView = function(subMenu) {
-    subMenu.attr('aria-expanded', 'false');
-    //self.find('a').first().after('<button aria-controls="' + slug + '" class="sub-menu-control"><span>more</span></button>');
-  };
+  Nav.createSmallView = function(parentMenu, subMenu) {
+    
+    // don't run this code if it already ran, please
+    if( parentMenu.hasClass('responsive-nav') ) {
+      return;
+    }
+    
+    var anchorText = parentMenu.find('a').first().text();
+    var idSlug = anchorText.toLowerCase().replace(/ /g,"-");
+    var randomNumber= Math.floor( Math.random()*9999 );
+    var slug = idSlug + randomNumber;
+    
+    subMenu.attr('aria-expanded', 'false').attr('id', slug);
+    parentMenu.addClass('is-expandable').addClass('responsive-nav');
+    parentMenu.find('a').first().after('<button type="button" aria-controls="' + slug + '" class="ui-toggle-button" data-text="close">open</button>');
+    
+    parentMenu.find('.ui-toggle-button').first().on('click', function() {
+      
+      var button = $(this);
+      var buttonText = button.text();
+      var inverseText = button.attr('data-text');
+      
+      if( subMenu.attr('aria-expanded') === 'false' ) {
+        subMenu.attr('aria-expanded', 'true');
+        subMenu.focus();
+      } else {
+        subMenu.attr('aria-expanded', 'false');
+        button.focus();
+      }
+      
+      // toggle the button text
+      button.attr('data-text', buttonText).text(inverseText);
 
-  Nav.destroySmallView = function(subMenu) {
+    });
+    
+  }; // Nav.createSmallView
+
+  Nav.destroySmallView = function(parentMenu, subMenu) {
+  
     subMenu.removeAttr('aria-expanded');
-  };
+    parentMenu.removeClass('is-expandable');
+    parentMenu.find('.ui-toggle-button').remove();
+    parentMenu.removeClass('responsive-nav');
+  
+  }; // Nav.destroySmallView
 
-  // menu toggle
+  // Menu toggle
   $('.nav-menu-toggle').on('click', function(e) {
 
     e.preventDefault();
@@ -61,22 +98,23 @@
   $('.menu-item').each(function(){
 
     var self = $(this);
+    var parentMenu = self;
     var menuChildren = self.children().length;
-    var anchorText = self.find('a').first().text();
-    var idSlug = anchorText.toLowerCase().replace(/ /g,"-");
     var subMenu = self.find('ul').first();
-    var randomNumber= Math.floor( Math.random()*9999 );
-    var slug = idSlug + randomNumber;
     var subMenuAnchor;
     var parentContainer;
-
+    var subMenu;
+    
+    // check to see if any menus have children
     if(menuChildren > 1) {
 
       subMenuAnchor = self.find('.menu-sub').find('a');
 
       // add class for children flag
       self.addClass('has-children');
-
+      
+      subMenu = self.find('.menu-sub');
+      
       // focus event
       subMenuAnchor.on('focus', function() {
         $(this).closest('.menu-item.has-children').addClass('child-has-focus');
@@ -92,34 +130,42 @@
         }
 
       });
-
-      if( Nav.isScreenSize('mediumscreen') ) {
-
-        // setting up the submenu toggle
-        Nav.createSmallView( subMenu );
-
+      
+      if( Nav.isScreenSize( 'mediumscreen' ) || Nav.isScreenSize( 'smallscreen' ) ) {
+        Nav.createSmallView(parentMenu, subMenu);
       }
 
     } // if has children
 
   }); // each menu-item
 
-  // resize event
+  // Resize event to create and destory the small screen navigation
   if( $('.menu-item.has-children').length > 0 ) {
     $(window).on('resize', function() {
 
-        var subMenu = $('.menu-item.has-children').find('ul').first();
+      if( Nav.isScreenSize( 'mediumscreen' ) || Nav.isScreenSize( 'smallscreen' ) ) {
+        
+        $(('.menu-item.has-children')).each(function(){
+          
+          var parentMenu = $(this);
+          var subMenu = parentMenu.find('.menu-sub');
+          
+          Nav.createSmallView(parentMenu, subMenu);
 
-        if( Nav.isScreenSize( 'mediumscreen' ) ) {
+        }); // each menu with children
 
-          Nav.createSmallView( subMenu );
-          console.log('create!');
+      } else {
 
-        } else {
+        $(('.menu-item.has-children')).each(function(){
+          
+          var parentMenu = $(this);
+          var subMenu = parentMenu.find('.menu-sub');
+          
+          Nav.destroySmallView(parentMenu, subMenu);
+        
+        }); // each menu with children
 
-          Nav.destroySmallView( subMenu );
-
-        }
+      }
 
     }); // resize
   }// if has-children

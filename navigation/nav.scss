@@ -223,7 +223,7 @@ $bp-small: 31.250em; // 500px
     speak: none;
   }
   
-  .nav-item > a {
+  .menu-item > a {
     padding: 1px 10px 0;
   }
  
@@ -283,7 +283,9 @@ $bp-small: 31.250em; // 500px
     &.has-children {
       position: relative;
       
-      > .sub-menu-toggle {
+      
+      
+      > .ui-toggle-button {
         background: #666;
         color: #fff;
         width: 10%;
