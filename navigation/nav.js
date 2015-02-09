@@ -141,6 +141,7 @@
 
   // Resize event to create and destory the small screen navigation
   if( $('.menu-item.has-children').length > 0 ) {
+  
     $(window).on('resize', function() {
 
       if( Nav.isScreenSize( 'mediumscreen' ) || Nav.isScreenSize( 'smallscreen' ) ) {
@@ -156,7 +157,7 @@
 
       } else {
 
-        $(('.menu-item.has-children')).each(function(){
+        $('.menu-item.has-children').each(function(){
           
           var parentMenu = $(this);
           var subMenu = parentMenu.find('.menu-sub');
