@@ -52,8 +52,8 @@ $bp-small: 31.250em; // 500px
 
 // Responsive JavaScript hooks
 
-@media screen and (max-width: $bp-wide) { 
-  
+@media screen and (max-width: $bp-wide) {
+
   body:before {
     content: "widescreen";
     @include move-off-screen;
@@ -61,12 +61,12 @@ $bp-small: 31.250em; // 500px
   }
 }
 
-@media screen and (max-width: $bp-large) { 
+@media screen and (max-width: $bp-large) {
 
   body:before {
     content: "largescreen";
   }
-  
+
 }
 
 @media screen and (max-width: $bp-medium) {
@@ -74,7 +74,7 @@ $bp-small: 31.250em; // 500px
   body:before {
     content: "mediumscreen";
   }
-  
+
 }
 
 // component objects
@@ -121,7 +121,7 @@ $bp-small: 31.250em; // 500px
 .menu-item {
   @include inline-block();
   position: relative;
-  
+
   > a {
     line-height: 60px;
     display: block;
@@ -129,50 +129,50 @@ $bp-small: 31.250em; // 500px
     padding: 1px 20px 0;
     @include transition(all linear .1s);
   }
-  
+
   &:hover,
   > a:hover ,
   > a:focus {
     background: #000;
-    
-    ~ .menu-sub,
-    .menu-sub {
+
+    ~ .sub-menu,
+    .sub-menu {
       top: 100%;
       left: 0;
     }
-    
+
   }
-  
+
 }
 
-.menu-sub {
+.sub-menu {
   @include move-off-screen;
   @include is-clean();
   list-style: none;
   min-width: 100%;
-  
+
   .child-has-focus & {
     top: 100%;
     left: 0;
   }
-  
+
 }
 
 .menu-sub-item {
   background: #111;
   line-height: normal;
-  
+
   > a {
     display: block;
     padding: 15px 20px;
     text-decoration: none;
-    
+
     &:hover {
       background: #333;
     }
-    
+
   }
-  
+
 }
 
 .nav-menu-toggle {
@@ -183,11 +183,11 @@ $bp-small: 31.250em; // 500px
   padding-left: 30px;
   text-decoration: none;
   @include is-uppercase();
-  
+
   &:hover {
     text-decoration: none;
   }
-  
+
   &:before,
   &:after {
     content: "";
@@ -199,10 +199,10 @@ $bp-small: 31.250em; // 500px
     background: #fff;
     @include transition(all linear .1s);
   }
-  
+
   &:before {
     margin-top: -7px;
-    
+
     .nav-is-active & {
       margin-top: -3px;
       @include transform(rotate(45deg));
@@ -210,12 +210,12 @@ $bp-small: 31.250em; // 500px
       -moz-transform-origin: center;
       transform-origin: center;
     }
-    
+
   }
 
   &:after {
     margin-top: 2px;
-    
+
     .nav-is-active & {
       margin-top: -3px;
       @include transform(rotate(-45deg));
@@ -223,9 +223,9 @@ $bp-small: 31.250em; // 500px
       -moz-transform-origin: center;
       transform-origin: center;
     }
-    
+
   }
-  
+
 } // .nav-menu-toggle
 
 .sub-menu-control {
@@ -242,27 +242,27 @@ $bp-small: 31.250em; // 500px
   @include font-size(12);
 }
 
-@media screen and (max-width: $bp-wide) { 
-  
+@media screen and (max-width: $bp-wide) {
+
   .menu-item > a {
     padding: 1px 10px 0;
   }
- 
+
 }
 
-@media screen and (max-width: $bp-large) { 
+@media screen and (max-width: $bp-large) {
 
   .branding {
     display: block;
     padding-left: 10px;
   }
-  
+
   .nav {
     float: none;
     width: 100%;
     border-top: 1px solid #444;
   }
-  
+
   .menu-item > a {
     padding: 1px 10px 0;
   }
@@ -275,29 +275,29 @@ $bp-small: 31.250em; // 500px
     float: left;
     @include font-size(20);
   }
-  
+
   /* make sure the menu can be opened before hiding it */
   .js .nav {
     @include move-off-screen;
   }
-  
+
   .nav-is-active .nav {
     position: static;
   }
-  
+
   .nav:target {
     position: static;
   }
-  
+
   .menu-item {
     display: block;
     border-bottom: 1px solid #444;
-    
+
     &.has-children {
       position: relative;
-      
-      
-      
+
+
+
       > .ui-toggle-button {
         background: #666;
         color: #fff;
@@ -313,25 +313,25 @@ $bp-small: 31.250em; // 500px
         @include is-clean();
         @include inline-block();
       }
-      
+
     } // .has-children
-    
+
   } // .menu-item
-  
+
   .nav-menu-toggle {
     display: block;
   }
-  
-  .menu-sub {
+
+  .sub-menu {
     position: static;
     clear: both;
-    
+
     &[aria-expanded="false"] {
       display: none;
     }
-    
+
   }
-  
+
   .sub-menu-control {
     display: block;
   }
@@ -339,7 +339,7 @@ $bp-small: 31.250em; // 500px
 }
 
 @media screen and (max-height: $bp-small) {
-  
+
   .banner,
   .menu-item > a {
      line-height: 48px;
