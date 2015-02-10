@@ -26,7 +26,7 @@
     Anything you need to create the small screen namvigation
   */
   
-  Nav.createSmallView = function(parentMenu, subMenu) {
+  Nav.createSmallView = function( parentMenu, subMenu ) {
     
     // don't run this code if it already ran, please
     if( parentMenu.hasClass('responsive-nav') ) {
@@ -74,7 +74,7 @@
     Anything you need to do to remove elements that were just for small screen
   */
   
-  Nav.destroySmallView = function(parentMenu, subMenu) {
+  Nav.destroySmallView = function( parentMenu, subMenu ) {
   
     subMenu.removeAttr('aria-expanded');
     parentMenu.removeClass('is-expandable');
