@@ -156,23 +156,20 @@ $bp-small: 31.250em; // 500px
     left: 0;
   }
 
-}
+  .menu-item {
+    background: #111;
+    line-height: normal;
 
-.menu-sub-item {
-  background: #111;
-  line-height: normal;
+    > a {
+      display: block;
+      padding: 15px 20px;
+      text-decoration: none;
 
-  > a {
-    display: block;
-    padding: 15px 20px;
-    text-decoration: none;
-
-    &:hover {
-      background: #333;
+      &:hover {
+        background: #333;
+      }
     }
-
   }
-
 }
 
 .nav-menu-toggle {

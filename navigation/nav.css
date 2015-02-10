@@ -93,16 +93,15 @@
   .child-has-focus .sub-menu {
     top: 100%;
     left: 0; }
-
-.menu-sub-item {
-  background: #111;
-  line-height: normal; }
-  .menu-sub-item > a {
-    display: block;
-    padding: 15px 20px;
-    text-decoration: none; }
-    .menu-sub-item > a:hover {
-      background: #333; }
+  .sub-menu .menu-item {
+    background: #111;
+    line-height: normal; }
+    .sub-menu .menu-item > a {
+      display: block;
+      padding: 15px 20px;
+      text-decoration: none; }
+      .sub-menu .menu-item > a:hover {
+        background: #333; }
 
 .nav-menu-toggle {
   display: none;
