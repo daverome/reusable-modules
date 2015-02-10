@@ -158,10 +158,12 @@ $bp-small: 31.250em; // 500px
 
   .menu-item {
     background: #111;
+    display: list-item;
     line-height: normal;
 
     > a {
       display: block;
+      line-height: normal;
       padding: 15px 20px;
       text-decoration: none;
 

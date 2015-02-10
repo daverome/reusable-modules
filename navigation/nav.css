@@ -95,9 +95,11 @@
     left: 0; }
   .sub-menu .menu-item {
     background: #111;
+    display: list-item;
     line-height: normal; }
     .sub-menu .menu-item > a {
       display: block;
+      line-height: normal;
       padding: 15px 20px;
       text-decoration: none; }
       .sub-menu .menu-item > a:hover {
