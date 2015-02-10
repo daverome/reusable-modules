@@ -1,0 +1,70 @@
+// Variables
+
+$bp-wide: 68.750em; // 1100px
+$bp-large: 59.375em; // 950px
+$bp-medium: 46.875em; // 750px
+$bp-small: 31.250em; // 500px
+
+$gutter: 20px;
+$gutter-half: $gutter / 2;
+
+// mixins
+
+@mixin clearfix () {
+  *zoom: 1;
+  clear: both;
+  
+  &:before, &:after {
+    content: " ";
+    display: table;
+  }
+  
+  &:after {
+    clear: both;
+  }
+}
+
+// objects
+
+.col {
+  outline: 1px solid #ccc;
+  display: inline-block;
+  margin: 0 -2px;
+}
+
+.layout {
+  @include clearfix;
+}
+
+.gutter {
+  padding: $gutter;
+}
+
+.w-33 {
+  width: 33.333333%;
+}
+
+
+@media screen and ( max-width: $bp-medium ) {
+
+  .w-m-50 {
+    width: 50%;
+  }
+  
+  .w-m-100 {
+    width: 100%;
+  }
+
+}
+
+@media screen and ( max-width: $bp-small ) {
+  
+  .gutter {
+    padding: $gutter-half;
+  }
+  
+  .w-sm-100 {
+    width: 100%;
+  }
+
+}

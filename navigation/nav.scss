@@ -5,33 +5,6 @@ $bp-large: 59.375em; // 950px
 $bp-medium: 46.875em; // 750px
 $bp-small: 31.250em; // 500px
 
-// Responsive JavaScript hooks
-
-@media screen and (max-width: $bp-wide) { 
-  
-  body:before {
-    content: "widescreen";
-    @include move-off-screen;
-    speak: none;
-  }
-}
-
-@media screen and (max-width: $bp-large) { 
-
-  body:before {
-    content: "largescreen";
-  }
-  
-}
-
-@media screen and (max-width: $bp-medium) {
-
-  body:before {
-    content: "mediumscreen";
-  }
-  
-}
-
 // Mixins
 
 @mixin inline-block ( $vertical-align: baseline ) {
@@ -75,6 +48,33 @@ $bp-small: 31.250em; // 500px
   position: absolute;
   top: -999em;
   left: -999em;
+}
+
+// Responsive JavaScript hooks
+
+@media screen and (max-width: $bp-wide) { 
+  
+  body:before {
+    content: "widescreen";
+    @include move-off-screen;
+    speak: none;
+  }
+}
+
+@media screen and (max-width: $bp-large) { 
+
+  body:before {
+    content: "largescreen";
+  }
+  
+}
+
+@media screen and (max-width: $bp-medium) {
+
+  body:before {
+    content: "mediumscreen";
+  }
+  
 }
 
 // component objects

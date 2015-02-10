@@ -1,0 +1,32 @@
+.col {
+  outline: 1px solid #ccc;
+  display: inline-block;
+  margin: 0 -2px; }
+
+.layout {
+  *zoom: 1;
+  clear: both; }
+  .layout:before, .layout:after {
+    content: " ";
+    display: table; }
+  .layout:after {
+    clear: both; }
+
+.gutter {
+  padding: 20px; }
+
+.w-33 {
+  width: 33.333333%; }
+
+@media screen and (max-width: 46.875em) {
+  .w-m-50 {
+    width: 50%; }
+
+  .w-m-100 {
+    width: 100%; } }
+@media screen and (max-width: 31.25em) {
+  .gutter {
+    padding: 10px; }
+
+  .w-sm-100 {
+    width: 100%; } }
