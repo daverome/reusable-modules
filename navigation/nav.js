@@ -8,19 +8,24 @@
   // Namespace
   Nav.ns = "Navigation";
 
-  // Start defining methods here
+  /*
+    Grab the screen size psuedo element content
+  */
+  
   Nav.isScreenSize = function( sizeString ) {
 
-    var size = window.getComputedStyle(document.body,':before').getPropertyValue('content');
+    var size = w.getComputedStyle(doc.body,':before').getPropertyValue('content');
 
-    if( size && size.indexOf( sizeString ) !=-1 ) {
+    if( size && size.indexOf( sizeString ) !==-1 ) {
       return true;
-    } else {
-      return false;
     }
 
   };
-
+  
+  /*
+    Anything you need to create the small screen namvigation
+  */
+  
   Nav.createSmallView = function(parentMenu, subMenu) {
     
     // don't run this code if it already ran, please
@@ -32,6 +37,9 @@
     var idSlug = anchorText.toLowerCase().replace(/ /g,"-");
     var randomNumber= Math.floor( Math.random()*9999 );
     var slug = idSlug + randomNumber;
+    var button;
+    var buttonText; 
+    var inverseText;
     
     subMenu.attr('aria-expanded', 'false').attr('id', slug);
     parentMenu.addClass('is-expandable').addClass('responsive-nav');
@@ -39,16 +47,20 @@
     
     parentMenu.find('.ui-toggle-button').first().on('click', function() {
       
-      var button = $(this);
-      var buttonText = button.text();
-      var inverseText = button.attr('data-text');
+      button = $(this);
+      buttonText = button.text();
+      inverseText = button.attr('data-text');
       
       if( subMenu.attr('aria-expanded') === 'false' ) {
+        
         subMenu.attr('aria-expanded', 'true');
         subMenu.focus();
+        
       } else {
+        
         subMenu.attr('aria-expanded', 'false');
         button.focus();
+      
       }
       
       // toggle the button text
@@ -57,7 +69,11 @@
     });
     
   }; // Nav.createSmallView
-
+  
+  /*
+    Anything you need to do to remove elements that were just for small screen
+  */
+  
   Nav.destroySmallView = function(parentMenu, subMenu) {
   
     subMenu.removeAttr('aria-expanded');
@@ -66,8 +82,35 @@
     parentMenu.removeClass('responsive-nav');
   
   }; // Nav.destroySmallView
+  
+  /*
+    Blur event to close the menu when tabbing through
+  */
+  
+  Nav.blur = function( self, parentContainer ) {
 
-  // Menu toggle
+    parentContainer = self.closest('.menu-item.has-children');
+    
+    if( parentContainer.find('.menu-sub').find('ul > li').children(':focus').length === 0 ) {
+      parentContainer.removeClass('child-has-focus');
+    }
+
+  } // Nav.blur
+  
+  /*
+    Focus event to expose submenus while tabbing
+  */
+  
+  Nav.focus = function ( self ) {
+    
+    self.closest('.menu-item.has-children').addClass('child-has-focus');
+    
+  } // Nav.focus
+  
+  /*
+    Small screen menu toggle
+  */
+  
   $('.nav-menu-toggle').on('click', function(e) {
 
     e.preventDefault();
@@ -79,11 +122,13 @@
 
     if( body.hasClass('nav-is-active') ) {
 
+      self.trigger('navclose');
       body.removeClass('nav-is-active');
       targetZone.attr('aria-expanded', 'false');
 
     } else {
-
+      
+      self.trigger('navopen');
       body.addClass('nav-is-active');
       targetZone.attr('aria-expanded', 'true').focus();
 
@@ -92,83 +137,89 @@
   }); // menu toggle
 
   /*
-    Set the stage for anything with children
+    Loop over all the menu items to see if they have child nodes
   */
 
-  $('.menu-item').each(function(){
+  $('.menu-item').each(function() {
 
     var self = $(this);
-    var parentMenu = self;
     var menuChildren = self.children().length;
-    var subMenu = self.find('ul').first();
-    var subMenuAnchor;
-    var parentContainer;
-    var subMenu;
-    
+
     // check to see if any menus have children
     if(menuChildren > 1) {
 
-      subMenuAnchor = self.find('.menu-sub').find('a');
-
-      // add class for children flag
       self.addClass('has-children');
+
+    }
+
+  }); // each menu-item
+  
+  /*
+    Loop through the sub menus
+  */
+  
+  if( $('.menu-item.has-children').length > 0 ) {
+  
+    $('.menu-item.has-children').each(function() {
       
-      subMenu = self.find('.menu-sub');
+      var self = $(this);
+      var parentMenu = self;
+      var subMenu = self.find('.menu-sub');
+      var subMenuAnchor = subMenu.find('a');
+      var parentContainer;
       
-      // focus event
+      // focus
       subMenuAnchor.on('focus', function() {
-        $(this).closest('.menu-item.has-children').addClass('child-has-focus');
-      });
-
-      // blur event
-      subMenuAnchor.on('blur', function() {
-
-        parentContainer = $(this).closest('.menu-item.has-children');
-
-        if( parentContainer.find('.menu-sub').find('ul > li').children(':focus').length === 0 ) {
-          parentContainer.removeClass('child-has-focus');
-        }
-
+        Nav.focus( $(this) );
       });
       
+      // blur
+      subMenuAnchor.on('blur', function() {
+        Nav.blur( $(this), parentContainer );
+      }); // blur event
+      
+      // create small screen navigation
       if( Nav.isScreenSize( 'mediumscreen' ) || Nav.isScreenSize( 'smallscreen' ) ) {
         Nav.createSmallView(parentMenu, subMenu);
       }
+      
+    }); // each()
+    
+    /*
+      Resize event to create and destory the navigation
+    */
 
-    } // if has children
-
-  }); // each menu-item
-
-  // Resize event to create and destory the small screen navigation
-  if( $('.menu-item.has-children').length > 0 ) {
-  
-    $(window).on('resize', function() {
+    $(w).on('resize', function() {
 
       if( Nav.isScreenSize( 'mediumscreen' ) || Nav.isScreenSize( 'smallscreen' ) ) {
         
-        $(('.menu-item.has-children')).each(function(){
+        var parentMenu;
+        var subMenu
+        
+        $('.menu-item.has-children').each(function() {
           
-          var parentMenu = $(this);
-          var subMenu = parentMenu.find('.menu-sub');
+          parentMenu = $(this);
+          subMenu = parentMenu.find('.menu-sub');
           
-          Nav.createSmallView(parentMenu, subMenu);
+          Nav.createSmallView( parentMenu, subMenu );
 
         }); // each menu with children
 
       } else {
 
-        $('.menu-item.has-children').each(function(){
+        $('.menu-item.has-children').each(function() {
           
-          var parentMenu = $(this);
-          var subMenu = parentMenu.find('.menu-sub');
+          parentMenu = $(this);
+          subMenu = parentMenu.find('.menu-sub');
           
-          Nav.destroySmallView(parentMenu, subMenu);
+          Nav.destroySmallView( parentMenu, subMenu );
         
         }); // each menu with children
 
       }
 
     }); // resize
-  }// if has-children
 
-} )( jQuery, this, this.document );
+  }// if has-children
+  
+} ( jQuery, this, this.document ));
