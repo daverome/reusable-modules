@@ -1,3 +1,16 @@
+@media screen and (max-width: 68.75em) {
+  body:before {
+    content: "widescreen";
+    position: absolute;
+    top: -999em;
+    left: -999em;
+    speak: none; } }
+@media screen and (max-width: 59.375em) {
+  body:before {
+    content: "largescreen"; } }
+@media screen and (max-width: 46.875em) {
+  body:before {
+    content: "mediumscreen"; } }
 .banner {
   line-height: 60px;
   background: #333;
@@ -60,16 +73,16 @@
   .menu-item > a:hover,
   .menu-item > a:focus {
     background: #000; }
-    .menu-item:hover ~ .menu-sub,
-    .menu-item:hover .menu-sub,
-    .menu-item > a:hover ~ .menu-sub,
-    .menu-item > a:hover .menu-sub,
-    .menu-item > a:focus ~ .menu-sub,
-    .menu-item > a:focus .menu-sub {
+    .menu-item:hover ~ .sub-menu,
+    .menu-item:hover .sub-menu,
+    .menu-item > a:hover ~ .sub-menu,
+    .menu-item > a:hover .sub-menu,
+    .menu-item > a:focus ~ .sub-menu,
+    .menu-item > a:focus .sub-menu {
       top: 100%;
       left: 0; }
 
-.menu-sub {
+.sub-menu {
   position: absolute;
   top: -999em;
   left: -999em;
@@ -77,19 +90,20 @@
   margin: 0;
   list-style: none;
   min-width: 100%; }
-  .child-has-focus .menu-sub {
+  .child-has-focus .sub-menu {
     top: 100%;
     left: 0; }
-
-.menu-sub-item {
-  background: #111;
-  line-height: normal; }
-  .menu-sub-item > a {
-    display: block;
-    padding: 15px 20px;
-    text-decoration: none; }
-    .menu-sub-item > a:hover {
-      background: #333; }
+  .sub-menu .menu-item {
+    background: #111;
+    display: list-item;
+    line-height: normal; }
+    .sub-menu .menu-item > a {
+      display: block;
+      line-height: normal;
+      padding: 15px 20px;
+      text-decoration: none; }
+      .sub-menu .menu-item > a:hover {
+        background: #333; }
 
 .nav-menu-toggle {
   display: none;
@@ -152,19 +166,9 @@
   font-size: 0.75rem; }
 
 @media screen and (max-width: 68.75em) {
-  body:before {
-    content: "widescreen";
-    position: absolute;
-    top: -999em;
-    left: -999em;
-    speak: none; }
-
   .menu-item > a {
     padding: 1px 10px 0; } }
 @media screen and (max-width: 59.375em) {
-  body:before {
-    content: "largescreen"; }
-
   .branding {
     display: block;
     padding-left: 10px; }
@@ -177,9 +181,6 @@
   .menu-item > a {
     padding: 1px 10px 0; } }
 @media screen and (max-width: 46.875em) {
-  body:before {
-    content: "mediumscreen"; }
-
   .branding {
     float: left;
     font-size: 20px;
@@ -225,10 +226,10 @@
   .nav-menu-toggle {
     display: block; }
 
-  .menu-sub {
+  .sub-menu {
     position: static;
     clear: both; }
-    .menu-sub[aria-expanded="false"] {
+    .sub-menu[aria-expanded="false"] {
       display: none; }
 
   .sub-menu-control {
@@ -237,3 +238,5 @@
   .banner,
   .menu-item > a {
     line-height: 48px; } }
+
+/*# sourceMappingURL=nav.css.map */
